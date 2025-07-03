@@ -1,18 +1,7 @@
 import React from "react";
 import rigoBaby from "../assets/img/rigo-baby.jpg";
 
-function ContactCard({ name, adress, phone, email, id }) {
-  console.log(name)
-
-  const deleteContact = () => {
-    fetch('https://playground.4geeks.com/contact/agendas/contactList/contacts/' + id, {
-      method: 'DELETE',
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .catch(err => console.log('Error', err))
-  }
+function ContactCard({ name, adress, phone, email, id, deleted }) {
 
   return (
     <div>
@@ -30,7 +19,7 @@ function ContactCard({ name, adress, phone, email, id }) {
                   <i className="fas fa-pen"></i>
                 </button>
 
-                <button onClick={deleteContact} className="delete-btn" title="Eliminar">
+                <button onClick={ () => deleted(id)} className="delete-btn" title="Eliminar">
                   <i className="fas fa-trash"></i>
                 </button>
 

@@ -10,7 +10,7 @@ function AddContact() {
     const [email, setEmail] = useState('')
 
     const saveContact = (e) => {
-        e.preventDefault()
+        e.preventDefault()   //no se refresca, prevenir comportamiento standar del navegador frente al boton
         fetch('https://playground.4geeks.com/contact/agendas/contactList/contacts', {
             method: 'POST',
             body: JSON.stringify({ name, address: adress, phone, email }),
@@ -19,8 +19,15 @@ function AddContact() {
             }
         })
             .then(res => res.json())
-            .then(data => console.log(data))
-            .catch(err => console.log('Error', err))
+            .then(data => {
+                console.log(data);
+                setName('');
+                setEmail('');
+                setPhone('');
+                setAdress('');
+
+            })
+            .catch(err => console.log('Error', err));
     }
 
     return (
@@ -29,24 +36,48 @@ function AddContact() {
 
                 <h1 className="text-center">Add a new contact</h1>
                 <div className="mb-3">
-                    <label for="exampleInputEmai4" className="form-label fw-bold">Full Name</label>
-                    <input onChange={(e) => setName(e.target.value)} type="text" className="form-control" id="exampleInputName" aria-describedby="emailHelp" placeholder="Full Name" />
+                    <label htmlFor="exampleInputEmai4" className="form-label fw-bold">Full Name</label>
+                    <input 
+                    onChange={(e) => setName(e.target.value)} 
+                    type="text" 
+                    className="form-control" 
+                    id="exampleInputName"  
+                    placeholder="Full Name" 
+                    value={name}
+                    />
 
                 </div>
 
                 <div className="mb-3">
-                    <label for="exampleInputPassword1" className="form-label fw-bold">Email</label>
-                    <input onChange={(e) => setEmail(e.target.value)} type="email" className="form-control" id="exampleInputEmail" placeholder="Enter Email" />
+                    <label htmlFor="exampleInputPassword1" className="form-label fw-bold">Email</label>
+                    <input 
+                    onChange={(e) => setEmail(e.target.value)} 
+                    type="email" className="form-control" 
+                    id="exampleInputEmail" 
+                    placeholder="Enter Email" 
+                    value={email}/>
                 </div>
 
                 <div className="mb-3">
-                    <label for="exampleInputEmail2" className="form-label fw-bold">Phone</label>
-                    <input onChange={(e) => setPhone(e.target.value)} type="text" className="form-control" id="exampleInputPhone" aria-describedby="emailHelp" placeholder="Enter Phone" />
+                    <label htmlFor="exampleInputEmail2" className="form-label fw-bold">Phone</label>
+                    <input
+                    onChange={(e) => setPhone(e.target.value)} 
+                    type="text" className="form-control" 
+                    id="exampleInputPhone" 
+                    placeholder="Enter Phone" 
+                    value={phone}
+                    />
                 </div>
 
                 <div className="mb-3">
-                    <label for="exampleInputEmail3" className="form-label fw-bold">Address</label>
-                    <input onChange={(e) => setAdress(e.target.value)} type="text" className="form-control" id="exampleInputAddress" aria-describedby="emailHelp" placeholder="Enter Address" />
+                    <label htmlFor="exampleInputEmail3" className="form-label fw-bold">Address</label>
+                    <input 
+                    onChange={(e) => setAdress(e.target.value)} 
+                    type="text" className="form-control" 
+                    id="exampleInputAddress" 
+                    placeholder="Enter Address" 
+                    value={adress}
+                    />
                 </div>
 
                 <button onClick={saveContact} type="submit" className="btn btn-primary w-100">Save</button>
